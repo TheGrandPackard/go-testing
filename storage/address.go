@@ -41,7 +41,7 @@ func (s *Storage) GetAddress(a *models.Address) (err error) {
 	return
 }
 
-func (s *Storage) GetUserAddresses(u *models.User) (err error) {
+func (s *Storage) GetUserAddresses(u *models.User) (addresses []*models.Address, err error) {
 	var rows *sql.Rows
 	rows, err = s.db.Query("SELECT id, name, street, city, state, postal_code FROM address WHERE user_id = ?;", u.ID)
 	if err != nil {
@@ -55,7 +55,7 @@ func (s *Storage) GetUserAddresses(u *models.User) (err error) {
 		if err != nil {
 			return
 		}
-		u.Addresses = append(u.Addresses, a)
+		addresses = append(addresses, a)
 	}
 	return
 }

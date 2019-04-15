@@ -12,13 +12,8 @@ import (
 func TestAddress(t *testing.T) {
 
 	// Create storage interface
-	storage := &Storage{}
-	err := storage.Open()
+	storage, err := Init()
 	assert.Nil(t, err, "Database connection should be opened")
-
-	// Create address table
-	err = storage.CreateAddressTable()
-	assert.Nil(t, err, "Address table should be created")
 
 	// Set address
 	u1 := &models.User{
@@ -59,6 +54,9 @@ func TestAddress(t *testing.T) {
 	assert.Nil(t, err, "Address table should be dropped")
 
 	// Get user address without valid table
-	err = storage.GetUserAddresses(&models.User{})
+	_, err = storage.GetUserAddresses(&models.User{})
 	assert.NotNil(t, err, "User Addresses should not be get")
+
+	// Close the database
+	storage.Close()
 }

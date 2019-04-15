@@ -12,15 +12,8 @@ import (
 func TestUser(t *testing.T) {
 
 	// Create storage interface
-	storage := &Storage{}
-	err := storage.Open()
+	storage, err := Init()
 	assert.Nil(t, err, "Database connection should be opened")
-
-	// Create person and address table
-	err = storage.CreateUserTable()
-	assert.Nil(t, err, "User table should be created")
-	err = storage.CreateAddressTable()
-	assert.Nil(t, err, "Address table should be created")
 
 	// Set person
 	u1 := &models.User{
@@ -75,4 +68,6 @@ func TestUser(t *testing.T) {
 	err = storage.DropUserTable()
 	assert.Nil(t, err, "User table should be dropped")
 
+	// Close the database
+	storage.Close()
 }

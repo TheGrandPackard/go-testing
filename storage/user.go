@@ -27,7 +27,12 @@ func (s *Storage) CreateUserTable() (err error) {
 func (s *Storage) GetUser(u *models.User) (err error) {
 	err = s.db.QueryRow("SELECT name, age FROM user WHERE id = ?;", u.ID).Scan(&u.Name, &u.Age)
 	if err == nil {
-		err = s.GetUserAddresses(u)
+		var addresses []*models.Address
+		addresses, err = s.GetUserAddresses(u)
+		if err != nil {
+			return
+		}
+		u.Addresses = addresses
 	}
 	return
 }

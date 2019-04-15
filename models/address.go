@@ -9,3 +9,33 @@ type Address struct {
 	State      string
 	PostalCode string
 }
+
+type GetAddressRequest struct {
+	ID int
+}
+
+type GetAddressResponse struct {
+	Address *Address
+}
+
+type GetUserAddressesRequest struct {
+	UserID int
+}
+
+type GetUserAddressesResponse struct {
+	Addresses []*Address
+}
+
+type SetAddressRequest struct {
+	Address *Address
+}
+
+type SetAddressResponse struct {
+}
+
+type DeleteAddressRequest struct {
+	ID int
+}
+
+type DeleteAddressResponse struct {
+}
