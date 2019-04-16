@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"runtime"
 
 	"github.com/thegrandpackard/go-testing/api/rest/routes"
 	"github.com/thegrandpackard/go-testing/cases"
@@ -73,4 +74,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	runtime.Goexit()
 }

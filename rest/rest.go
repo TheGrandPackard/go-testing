@@ -61,5 +61,9 @@ func (r *RESTService) StartServer(RESTAddress string) (err error) {
 		ReadTimeout:  60 * time.Second,
 	}
 
-	return r.srv.ListenAndServe()
+	go func() {
+		r.srv.ListenAndServe()
+	}()
+
+	return
 }
