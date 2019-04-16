@@ -4,6 +4,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/nats-io/gnatsd/server"
 	"github.com/nats-io/nats"
 	"github.com/thegrandpackard/go-testing/cases"
 )
@@ -95,5 +96,27 @@ func (n *NATSConnection) QueueSubscribe(subject, queue string, cb func(msg *nats
 
 func (n *NATSConnection) Close() (err error) {
 	n.nc.Close()
+	return
+}
+
+func InitEmbeddedServer(options *server.Options) (s *server.Server, err error) {
+	if options == nil {
+		options = &server.Options{
+			Host:           "127.0.0.1",
+			Port:           4222,
+			NoLog:          true,
+			NoSigs:         true,
+			MaxControlLine: 2048,
+		}
+	}
+
+	s, err = server.NewServer(options)
+	if err != nil {
+		return
+	}
+
+	// Run server in Go routine.
+	go s.Start()
+
 	return
 }
