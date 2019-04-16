@@ -9,7 +9,7 @@ import (
 	"github.com/thegrandpackard/go-testing/storage"
 )
 
-func TestUserSubscription(t *testing.T) {
+func TestAddressSubscription(t *testing.T) {
 
 	// Init storage
 	s, err := storage.Init()
