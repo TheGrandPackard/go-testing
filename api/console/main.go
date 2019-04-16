@@ -12,6 +12,7 @@ import (
    This would be an ideal starting point for integrating a REST interface, NATS endpoint, GRPC gateway, etc.
 */
 func main() {
+	log.Println("Console Endpoint")
 
 	// Init storage
 	s, err := storage.Init()
@@ -74,9 +75,9 @@ func main() {
 	{
 		getResp, err := c.GetUser(&models.GetUserRequest{ID: 1})
 		if err != nil {
-			log.Printf("Error getting user: %s", err.Error())
+			log.Printf("Error getting deleted user: %s", err.Error())
 		} else {
-			log.Printf("Got User: %+v", getResp.User)
+			log.Printf("Got deleted user: %+v", getResp.User)
 		}
 	}
 }

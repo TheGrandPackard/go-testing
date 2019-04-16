@@ -11,6 +11,10 @@ type Storage struct {
 	db *sql.DB
 }
 
+type Storer interface {
+	Close() (err error)
+}
+
 func Init() (storage *Storage, err error) {
 
 	storage = &Storage{}
@@ -26,6 +30,6 @@ func Init() (storage *Storage, err error) {
 	return
 }
 
-func (s *Storage) Close() {
-	s.db.Close()
+func (s *Storage) Close() (err error) {
+	return s.db.Close()
 }
