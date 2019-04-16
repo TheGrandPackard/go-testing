@@ -5,6 +5,8 @@ import (
 
 	// Import sqlite3 database driver
 	_ "github.com/mattn/go-sqlite3"
+	// Import mysql database driver
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type Storage struct {
@@ -15,7 +17,18 @@ type Storer interface {
 	Close() (err error)
 }
 
-func Init() (storage *Storage, err error) {
+func Init(connectionString string) (storage *Storage, err error) {
+
+	storage = &Storage{}
+	storage.db, err = sql.Open("mysql", connectionString)
+	if err != nil {
+		return
+	}
+
+	return
+}
+
+func InitMemoryDatabase() (storage *Storage, err error) {
 
 	storage = &Storage{}
 	storage.db, err = sql.Open("sqlite3", "file::memory:?mode=memory&cache=shared")

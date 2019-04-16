@@ -6,7 +6,6 @@ import (
 
 	"github.com/thegrandpackard/go-testing/api/nats/routes"
 	"github.com/thegrandpackard/go-testing/cases"
-	"github.com/thegrandpackard/go-testing/models"
 	n "github.com/thegrandpackard/go-testing/nats"
 	"github.com/thegrandpackard/go-testing/storage"
 )
@@ -17,7 +16,7 @@ func main() {
 	log.Println("NATS Endpoint")
 
 	// Init storage
-	s, err := storage.Init()
+	s, err := storage.Init("test:test@(127.0.0.1:3306)/test")
 	if err != nil {
 		panic(err)
 	}
@@ -36,31 +35,6 @@ func main() {
 		panic(err)
 	}
 	log.Printf("NATS Connected to: %s", NATSUrl)
-
-	// Test Data
-	{
-		u1 := &models.User{
-			ID:   1,
-			Name: "Joshua",
-			Age:  29,
-		}
-		a1 := &models.Address{
-			ID:         1,
-			User:       u1,
-			Name:       "Home",
-			Street:     "123 Main Street",
-			City:       "Greenville",
-			State:      "Indiana",
-			PostalCode: "12345",
-		}
-		u1.Addresses = append(u1.Addresses, a1)
-		_, err = c.SetUser(&models.SetUserRequest{User: u1})
-		if err != nil {
-			log.Printf("Error setting user: %s", err.Error())
-		} else {
-			log.Printf("Set User: %+v", u1)
-		}
-	}
 
 	// Register Routes
 	err = routes.RegisterRoutes(nc)

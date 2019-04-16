@@ -21,7 +21,7 @@ func (s *Storage) CreateAddressTable() (err error) {
 	_, err = s.db.Exec(`
 	CREATE TABLE address (
 		id INT UNSIGNED NOT NULL,
-		user_id INT UNSISGNED NOT NULL,
+		user_id INT UNSIGNED NOT NULL,
 		name VARCHAR(128) DEFAULT ' ',
 		street VARCHAR(128) DEFAULT ' ',
 		city VARCHAR(64) DEFAULT ' ',
@@ -64,7 +64,7 @@ func (s *Storage) SetAddress(a *models.Address) (err error) {
 	if a.User == nil {
 		return errors.New("Cannot set address for user with invalid user")
 	}
-	_, err = s.db.Exec("REPLACE INTO Address (id, user_id, name, street, city, state, postal_code) VALUES (?, ?, ?, ?, ?, ?, ?);",
+	_, err = s.db.Exec("REPLACE INTO address (id, user_id, name, street, city, state, postal_code) VALUES (?, ?, ?, ?, ?, ?, ?);",
 		a.ID, a.User.ID, a.Name, a.Street, a.City, a.State, a.PostalCode)
 	return
 }

@@ -18,7 +18,7 @@ func TestGetUser(t *testing.T) {
 	RESTAddress := "0.0.0.0:8181"
 
 	// Init storage
-	s, err := storage.Init()
+	s, err := storage.InitMemoryDatabase()
 	assert.Nil(t, err, "Storage should initialize")
 
 	// Init cases with storage
