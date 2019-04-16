@@ -21,7 +21,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
 	log.Printf("Storage Initialized")
 
 	// Init cases with storage
