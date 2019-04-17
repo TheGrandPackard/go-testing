@@ -25,6 +25,11 @@ func Init(connectionString string) (storage *Storage, err error) {
 		return
 	}
 
+	err = storage.db.Ping()
+	if err != nil {
+		return
+	}
+
 	return
 }
 

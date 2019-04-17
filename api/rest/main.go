@@ -48,6 +48,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	log.Printf("REST Server Started")
 
 	runtime.Goexit()
 }

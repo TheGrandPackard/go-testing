@@ -12,7 +12,7 @@ import (
 func TestUser(t *testing.T) {
 
 	// Create storage interface
-	storage, err := Init()
+	storage, err := InitMemoryDatabase()
 	assert.Nil(t, err, "Database connection should be opened")
 
 	// Set person
